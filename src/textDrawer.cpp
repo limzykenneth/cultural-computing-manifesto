@@ -47,17 +47,18 @@ void textDrawer::update(float fontVolume){
     }
     get<2>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = true;
     
-    
-    // increment the pointer
-    if(manifestoPointer.second == manifestoWords[manifestoPointer.first].size()-1){
-        manifestoPointer.first++;
-        manifestoPointer.second = 0;
+    if(!(manifestoPointer.first == manifestoWords.size()-1)){
+        // increment the pointer
+        if(manifestoPointer.second == manifestoWords[manifestoPointer.first].size()-1){
+            manifestoPointer.first++;
+            manifestoPointer.second = 0;
 
-        if(textHeight > ofGetHeight()-140) {
-            multiplier++;
+            if(textHeight > ofGetHeight()-140) {
+                multiplier++;
+            }
+        }else{
+            manifestoPointer.second++;
         }
-    }else{
-        manifestoPointer.second++;
     }
 }
 
@@ -112,7 +113,7 @@ void textDrawer::draw(){
         textWidth = 0;
         textHeight += 70;
 
-        if(!get<2>(manifestoWords[indexLine+1][0])){
+        if(!(indexLine+1 == manifestoWords.size()) && !get<2>(manifestoWords[indexLine+1][0])){
             break;
         }
     }
