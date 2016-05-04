@@ -48,7 +48,8 @@ void ofApp::update(){
     }
 
     // Update the object info
-    if(ofGetFrameNum()%30 == 0){
+    // When to update?
+    if(ofGetFrameNum()%10 == 0){
         float fontVolume = scaledVol * 150;
         manifesto.update(fontVolume);
     }
@@ -65,29 +66,31 @@ void ofApp::draw(){
     ofPushStyle();
     ofPushMatrix();
     ofTranslate(10, 10, 0);
-    
-    ofSetColor(225);
-    ofDrawBitmapString("Scaled average vol (0-100): " + ofToString(scaledVol * 100.0, 0), 4, 18);
-    ofDrawRectangle(0, 0, graphMaxWidth, graphMaxHeight);
-    
-    ofDrawBitmapString("FPS: " + ofToString(floor(ofGetFrameRate())), ofGetWidth() - 200, 30);
-    ofDrawBitmapString("Frame: " + ofToString(ofGetFrameNum()), ofGetWidth() - 200, 50);
-    
-    ofSetColor(245, 58, 135, 100);
-    ofFill();
-    ofDrawCircle(graphMaxWidth/2, graphMaxHeight/2, scaledVol * 400.0f);
-    
-    
-    //lets draw the volume history as a graph
-    ofBeginShape();
-    for (unsigned int i = 0; i < volHistory.size(); i++){
-        if( i == 0 ) ofVertex(i, graphMaxHeight);
+
+    if(debugMode){
+        ofSetColor(225);
+        ofDrawBitmapString("Scaled average vol (0-100): " + ofToString(scaledVol * 100.0, 0), 4, 18);
+        ofDrawRectangle(0, 0, graphMaxWidth, graphMaxHeight);
         
-        ofVertex(i, graphMaxHeight - volHistory[i] * graphMaxHeight/2);
-        
-        if( i == volHistory.size() - 1 ) ofVertex(i, graphMaxHeight);
+        ofDrawBitmapString("FPS: " + ofToString(floor(ofGetFrameRate())), ofGetWidth() - 200, 30);
+        ofDrawBitmapString("Frame: " + ofToString(ofGetFrameNum()), ofGetWidth() - 200, 50);
+
+        ofSetColor(245, 58, 135, 100);
+        ofFill();
+        ofDrawCircle(graphMaxWidth/2, graphMaxHeight/2, scaledVol * 400.0f);
+    
+
+        //lets draw the volume history as a graph
+        ofBeginShape();
+        for (unsigned int i = 0; i < volHistory.size(); i++){
+            if( i == 0 ) ofVertex(i, graphMaxHeight);
+            
+            ofVertex(i, graphMaxHeight - volHistory[i] * graphMaxHeight/2);
+            
+            if( i == volHistory.size() - 1 ) ofVertex(i, graphMaxHeight);
+        }
+        ofEndShape(false);
     }
-    ofEndShape(false);
     
     // Draw the text
     ofTranslate(20, 60, 0);
@@ -135,6 +138,10 @@ void ofApp::keyPressed  (int key){
     
     if( key == 'e' ){
         soundStream.stop();
+    }
+
+    if(key == 'd'){
+        debugMode = !debugMode;
     }
 }
 

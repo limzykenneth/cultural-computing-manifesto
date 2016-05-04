@@ -52,24 +52,30 @@ void textDrawer::update(float fontVolume){
     if(manifestoPointer.second == manifestoWords[manifestoPointer.first].size()-1){
         manifestoPointer.first++;
         manifestoPointer.second = 0;
+
+        if(textHeight > ofGetHeight()-140) {
+            multiplier++;
+        }
     }else{
         manifestoPointer.second++;
     }
 }
 
 
-
 void textDrawer::draw(){
     ofSetColor(225);
     ofRectangle rect;
     float textWidth;
-    float textHeight;
-    float lineHeight;
-    
+    textHeight = 0;
+
+    ofPushMatrix();
+    ofTranslate(0, -70 * multiplier);
     // for every line
-    for (auto line: manifestoWords){
+    for (auto& line: manifestoWords){
+        auto indexLine = &line - &manifestoWords[0];
         // for every word
-        for (auto word: line){
+        for (auto& word: line){
+            auto indexWord = &word - &line[0];
             // if the word should be rendered
             if (get<2>(word) == true){
                 // find out how big the word should be rendered
@@ -104,8 +110,13 @@ void textDrawer::draw(){
         // the last line have fully rendered
         // reset the textWidth and increse the textHeight to go to the next line
         textWidth = 0;
-        textHeight += 60;
+        textHeight += 70;
+
+        if(!get<2>(manifestoWords[indexLine+1][0])){
+            break;
+        }
     }
+    ofPopMatrix();
 }
 
 

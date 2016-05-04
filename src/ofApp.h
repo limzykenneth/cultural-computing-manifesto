@@ -39,4 +39,6 @@ public:
     ofSoundStream soundStream;
 
     textDrawer manifesto;
+
+    bool debugMode = false;
 };

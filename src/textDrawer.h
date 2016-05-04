@@ -33,4 +33,7 @@ private:
     ofTrueTypeFont fontH2;
     ofTrueTypeFont fontH3;
     ofTrueTypeFont fontH4;
+
+    float multiplier = 0;
+    float textHeight;
 };
