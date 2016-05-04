@@ -25,6 +25,7 @@ public:
     void gotMessage(ofMessage msg);
 				
     void audioIn(float* input, int bufferSize, int nChannels);
+    void audioOut(float* input, int bufferSize, int nChannels);
     
     vector <float> left;
     vector <float> right;

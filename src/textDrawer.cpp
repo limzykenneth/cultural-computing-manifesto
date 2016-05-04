@@ -36,11 +36,11 @@ void textDrawer::update(float fontVolume){
     // With manifestoPointer we get the current word that we will render next.
     // Then we set its font size and set the render boolean to true so it renders in draw().
     // This should be where we control how often a new word is drawn.
-    if(fontVolume > 15){
+    if(fontVolume > 18){
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H1;
-    }else if(fontVolume > 10 && fontVolume <= 15){
+    }else if(fontVolume > 13 && fontVolume <= 16){
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H2;
-    }else if(fontVolume > 5 && fontVolume <= 10){
+    }else if(fontVolume > 10 && fontVolume <= 13){
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H3;
     }else{
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H4;

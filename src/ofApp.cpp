@@ -5,7 +5,6 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
     ofSetCircleResolution(80);
     ofBackground(54, 54, 54);
-//    ofSetBackgroundAuto(false);
 
     // 0 output channels,
     // 2 input channels
@@ -14,7 +13,8 @@ void ofApp::setup(){
     // 4 num buffers (latency)
     
     //if you want to set a different device id
-    //soundStream.setDeviceID(0); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
+    // soundStream.setDeviceID(1); //bear in mind the device id corresponds to all audio devices, including  input-only and output-only devices.
+    ofSoundStreamListDevices();
     
     int bufferSize = 256;
     
@@ -48,9 +48,9 @@ void ofApp::update(){
     }
 
     // Update the object info
-    // When to update?
-    if(ofGetFrameNum()%10 == 0){
-        float fontVolume = scaledVol * 150;
+    // When to update? Also control scaledVol to control the size input
+    float fontVolume = scaledVol * 150;
+    if(ofGetFrameNum()%10 == 0 && fontVolume > 5){
         manifesto.update(fontVolume);
     }
 }
@@ -128,6 +128,35 @@ void ofApp::audioIn(float * input, int bufferSize, int nChannels){
     smoothedVol += 0.07 * curVol;
     
     bufferCounter++;
+}
+
+void ofApp::audioOut(float * input, int bufferSize, int nChannels){
+
+//    float curVol = 0.0;
+//
+//    // samples are "interleaved"
+//    int numCounted = 0;
+//
+//    //lets go through each sample and calculate the root mean square which is a rough way to calculate volume
+//    for (int i = 0; i < bufferSize; i++){
+//        left[i]		= input[i*2]*0.5;
+//        right[i]	= input[i*2+1]*0.5;
+//
+//        curVol += left[i] * left[i];
+//        curVol += right[i] * right[i];
+//        numCounted+=2;
+//    }
+//
+//    //this is how we get the mean of rms :)
+//    curVol /= (float)numCounted;
+//
+//    // this is how we get the root of rms :)
+//    curVol = sqrt( curVol );
+//
+//    smoothedVol *= 0.93;
+//    smoothedVol += 0.07 * curVol;
+//
+//    bufferCounter++;
 }
 
 //--------------------------------------------------------------
