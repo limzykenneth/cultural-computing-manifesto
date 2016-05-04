@@ -68,11 +68,6 @@ void textDrawer::draw(){
     
     // for every line
     for (auto line: manifestoWords){
-        // the last line have fully rendered
-        // reset the textWidth and increse the textHeight to go to the next line
-        textWidth = 0;
-        textHeight += lineHeight + 10;
-        lineHeight = 0;
         // for every word
         for (auto word: line){
             // if the word should be rendered
@@ -100,16 +95,16 @@ void textDrawer::draw(){
                 
                 // increase the existing width of the line of text once every word is drawn and spacing
                 textWidth += rect.width + 15;
-                
-                // find the maximum height of the line of text
-                if (lineHeight < rect.height){
-                    lineHeight = rect.height;
-                }
             }else{
                 // Stop looping if there isn't anything more to render
                 break;
             }
         }
+
+        // the last line have fully rendered
+        // reset the textWidth and increse the textHeight to go to the next line
+        textWidth = 0;
+        textHeight += 60;
     }
 }
 
