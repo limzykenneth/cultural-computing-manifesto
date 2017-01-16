@@ -20,7 +20,7 @@ void textDrawer::setup(){
         for (auto& word: wordsInLine){
             manifestoWordTuple.push_back(make_tuple(word, H4, false));
         }
-
+        
         manifestoWords.push_back(manifestoWordTuple);
     }
     
@@ -36,11 +36,12 @@ void textDrawer::update(float fontVolume){
     // With manifestoPointer we get the current word that we will render next.
     // Then we set its font size and set the render boolean to true so it renders in draw().
     // This should be where we control how often a new word is drawn.
-    if(fontVolume > 18){
+    float maxVol = 30;
+    if(fontVolume > maxVol){
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H1;
-    }else if(fontVolume > 13 && fontVolume <= 16){
+    }else if(fontVolume > maxVol/2 && fontVolume <= 3*maxVol/4){
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H2;
-    }else if(fontVolume > 10 && fontVolume <= 13){
+    }else if(fontVolume > maxVol/4 && fontVolume <= maxVol/2){
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H3;
     }else{
         get<1>(manifestoWords[manifestoPointer.first][manifestoPointer.second]) = H4;
@@ -52,7 +53,7 @@ void textDrawer::update(float fontVolume){
         if(manifestoPointer.second == manifestoWords[manifestoPointer.first].size()-1){
             manifestoPointer.first++;
             manifestoPointer.second = 0;
-
+            
             if(textHeight > ofGetHeight()-140) {
                 multiplier++;
             }
@@ -68,7 +69,7 @@ void textDrawer::draw(){
     ofRectangle rect;
     float textWidth;
     textHeight = 0;
-
+    
     ofPushMatrix();
     ofTranslate(0, -70 * multiplier);
     // for every line
@@ -81,7 +82,7 @@ void textDrawer::draw(){
             if (get<2>(word) == true){
                 // find out how big the word should be rendered
                 switch(get<1>(word)){
-                    // render the word and find out how big its bounding box is
+                        // render the word and find out how big its bounding box is
                     case H1:
                         rect = fontH1.getStringBoundingBox(get<0>(word), 0, 0);
                         fontH1.drawString(get<0>(word), textWidth, textHeight);
@@ -107,12 +108,12 @@ void textDrawer::draw(){
                 break;
             }
         }
-
+        
         // the last line have fully rendered
         // reset the textWidth and increse the textHeight to go to the next line
         textWidth = 0;
         textHeight += 70;
-
+        
         if(!(indexLine+1 == manifestoWords.size()) && !get<2>(manifestoWords[indexLine+1][0])){
             break;
         }

@@ -50,8 +50,8 @@ void ofApp::update(){
     // Update the object info
     // When to update? Also control scaledVol to control the size input
     float fontVolume = scaledVol * 150;
-    if(ofGetFrameNum()%10 == 0 && fontVolume > 5){
-        manifesto.update(fontVolume);
+    if(ofGetFrameNum()%24 == 0 && fontVolume > 15){
+//        manifesto.update(fontVolume);
     }
 }
 
@@ -94,7 +94,7 @@ void ofApp::draw(){
     
     // Draw the text
     ofTranslate(20, 60, 0);
-    manifesto.draw();
+//    manifesto.draw();
     
     ofPopMatrix();
     ofPopStyle();

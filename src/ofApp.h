@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-#include <regex>
 #include "textDrawer.h"
 
 class ofApp : public ofBaseApp{
